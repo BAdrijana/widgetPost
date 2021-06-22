@@ -7,7 +7,6 @@ fetch('./data.json').then(function (response) {
  
 //  creating a single post
   for (var i = 0; i < data.length; ++i) {
-    
     var divPost = document.createElement('div');
     divPost.className ='widget__post';
     divPost.setAttribute('data-popup', i);
@@ -15,6 +14,7 @@ fetch('./data.json').then(function (response) {
     var divMain = document.createElement('div');
     divMain.className = 'widget__main';
     divMain.setAttribute('data-popup', i);
+    let flexDiv =  document.createElement('div');
     var profileImg = document.createElement('img');
     profileImg.className = 'widget__profileImg';
     profileImg.setAttribute('src', data[i].profile_image )
@@ -31,12 +31,16 @@ fetch('./data.json').then(function (response) {
     h3.innerHTML = data[i].date;
     h3.setAttribute('data-popup', i);
     div.append(h2,h3);
-    divMain.append( profileImg,div, instaImg);
+    flexDiv.append(profileImg,div,)
+    divMain.append( flexDiv,  instaImg);
 
+    let widImgDiv = document.createElement('div');
+    widImgDiv.className = 'widget__imageContainer';
     var widgetImg = document.createElement('img');
     widgetImg.className = 'widget__image';
     widgetImg.setAttribute('src', data[i].image);
     widgetImg.setAttribute('data-popup', i);
+    widImgDiv.append(widgetImg);
 
     var caption = document.createElement('p');
     caption.innerHTML = data[i].caption;
@@ -53,11 +57,27 @@ fetch('./data.json').then(function (response) {
     likes.setAttribute('data-popup', i);
 
     widgetsLikes.append(likesImg,likes);
-    divPost.append(divMain, widgetImg,caption, widgetsLikes);
+    divPost.append(divMain, widImgDiv,caption, widgetsLikes);
     widgetPosts.appendChild(divPost); 
     
 }
 
+// Load more Btn (lodd 4 post)
+const loadmore = document.getElementById('loadmore');
+    let current = 4;
+    loadmore.addEventListener('click', (e) => {
+        const posts = [...document.querySelectorAll(' .widget__post')];
+        for (let i = current; i < current + 4; i++) {
+            if (posts[i]) {
+                posts[i].style.display = 'block';
+            }
+        }
+        current += 4;
+
+        if (current >= posts.length) {
+            event.target.style.display = 'none';    
+        }
+    })
 
 }).catch(function (err) {
 	console.warn('Something went wrong.', err);
