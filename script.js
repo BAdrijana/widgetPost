@@ -59,6 +59,80 @@ fetch('./data.json').then(function (response) {
     widgetsLikes.append(likesImg,likes);
     divPost.append(divMain, widImgDiv,caption, widgetsLikes);
     widgetPosts.appendChild(divPost); 
+
+
+    // -------------POPUP Modals-----------
+
+    let widgetPost = document.querySelectorAll(".widget__post");
+    let widgetOverlay = document.getElementById("widget__overlay");
+
+    // popUP Function
+    widgetPost.forEach((e) => {
+      e.addEventListener("click", (el) => {
+        let id = el.target.getAttribute("data-popup");
+
+        //  modal Image
+        let modalImg = document.createElement("img");
+        modalImg.setAttribute("src", data[id].image);
+
+        // Modal Main Info
+        modalInfoContainer = document.createElement("div");
+        modalInfoContainer.className = "widget__modaliInfoContainer";
+
+        let modalInfo = document.createElement("div");
+        modalInfo.className = "widget__modalInfo";
+
+        let modalProfilImg = document.createElement("img");
+        modalProfilImg.className = "widget__profileImg";
+        modalProfilImg.setAttribute("src", data[id].profile_image);
+
+        var h2 = document.createElement("h2");
+        var h3 = document.createElement("h3");
+        h2.innerHTML = data[id].name;
+        h3.innerHTML = data[id].date;
+
+        let flexDiv = document.createElement("div");
+        flexDiv.append(h2, h3);
+        var instaImg = document.createElement("img");
+        instaImg.setAttribute("src", "./icons/instagram-logo.svg");
+
+        let modalInfoMain = document.createElement("div");
+        modalInfoMain.className = "widget__modalInfoMain";
+
+        modalInfo.append(modalProfilImg, flexDiv);
+        modalInfoMain.append(modalInfo, instaImg);
+
+        // Modal Caption
+        let modalCaption = document.createElement("p");
+        modalCaption.innerHTML = data[id].caption;
+
+        // Modal Likes
+        var modalLikes = document.createElement("div");
+        modalLikes.className = "widget__modalLikes";
+
+        var likesImg = document.createElement("img");
+        likesImg.setAttribute("src", "./icons/heart.svg");
+
+        var likes = document.createElement("p");
+        likes.innerHTML = data[id].likes;
+
+        modalLikes.append(likesImg, likes);
+
+        modalInfoContainer.append(modalInfoMain, modalCaption, modalLikes);
+
+        let widgetContainer = document.createElement("div");
+        widgetContainer.className = "widget__containerModal";
+        widgetContainer.append(modalImg, modalInfoContainer);
+        widgetOverlay.append(widgetContainer);
+
+        widget__overlay.style.display = "block";
+      });
+      widgetOverlay.addEventListener("click", () => {
+        widget__overlay.style.display = "none";
+      });
+    });
+
+
     
 }
 

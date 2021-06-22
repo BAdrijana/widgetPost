@@ -49,7 +49,7 @@
   display: flex;
   align-items: center;
 }
-.widget__main .widget__profileImg {
+.widget__profileImg {
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -108,4 +108,53 @@ p{
   font-weight: bold;
   border-style: none;
   cursor: pointer;
+}
+
+/* modals */
+#widget__overlay {
+  position: fixed;
+  z-index: 1010;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+ 
+}
+.widget__containerModal {
+  display: flex;
+  width: 60%;
+  height: 75%;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+}
+.widget__containerModal>img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    padding-right: 10px;
+}
+.widget__containerModal .widget__modalInfo{
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.widget__modaliInfoContainer{
+width: 50%;
+}
+.widget__modalInfoMain{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+}
+.widget__modalLikes{
+  display: flex;
+}
+.widget__modalLikes p {
+  padding: 10px;
 }
